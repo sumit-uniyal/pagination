@@ -11,22 +11,29 @@ export default function Pagination({
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
+  const handlePageClick = (page) => {
+    setCurrentPage(() => page);
+  };
+
   return (
     <div style={{ marginTop: '20px', textAlign: 'center' }}>
-      <button onClick={handlePrev} disabled={currentPage === 1}>
-        Previous
-      </button>
+      {/* Previous */}
+      <button onClick={handlePrev}>Previous</button>
 
+      {/* Page Numbers */}
       {[...Array(totalPages)].map((_, i) => {
         const page = i + 1;
+
         return (
           <button
             key={page}
-            onClick={() => setCurrentPage(() => page)}
+            onClick={() => handlePageClick(page)}
             style={{
               margin: '0 5px',
-              background: currentPage === page ? '#0a8f6a' : 'white',
-              color: currentPage === page ? 'white' : 'black',
+              padding: '5px 10px',
+              backgroundColor: currentPage === page ? '#0a8f6a' : '#ffffff',
+              color: currentPage === page ? '#ffffff' : '#000000',
+              border: '1px solid #ccc',
             }}
           >
             {page}
@@ -34,9 +41,8 @@ export default function Pagination({
         );
       })}
 
-      <button onClick={handleNext} disabled={currentPage === totalPages}>
-        Next
-      </button>
+      {/* Next */}
+      <button onClick={handleNext}>Next</button>
     </div>
   );
 }
