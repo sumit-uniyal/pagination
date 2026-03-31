@@ -3,16 +3,12 @@ export default function Pagination({
   totalPages,
   setCurrentPage,
 }) {
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  const handleNext = () => {
+    setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
   };
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+  const handlePrev = () => {
+    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
   return (
@@ -26,7 +22,7 @@ export default function Pagination({
         return (
           <button
             key={page}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => setCurrentPage(() => page)}
             style={{
               margin: '0 5px',
               background: currentPage === page ? '#0a8f6a' : 'white',
